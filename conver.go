@@ -54,7 +54,7 @@ func BoolMust(val interface{}, init bool) bool {
 	return ret
 }
 
-// Bytes : Conver "val" to a []byte
+// Bytes : Conver "val" to []byte
 func Bytes(val interface{}) ([]byte, error) {
 	switch ret := val.(type) {
 	case []byte:

@@ -1,8 +1,6 @@
-# conver [![Build Status](https://travis-ci.org/miaolz123/conver.svg?branch=master)](https://travis-ci.org/miaolz123/conver)
-Golang Type Reflect And Conver
+# conver [![GoDoc](https://godoc.org/github.com/miaolz123/conver?status.svg)](https://godoc.org/github.com/miaolz123/conver) [![Build Status](https://travis-ci.org/miaolz123/conver.svg?branch=master)](https://travis-ci.org/miaolz123/conver)
 
-[![GoDoc](https://godoc.org/github.com/miaolz123/conver?status.svg)](https://godoc.org/github.com/miaolz123/conver)
-
+### Golang Type Reflect And Conver
 
 ```go
 package main

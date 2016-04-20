@@ -8,7 +8,7 @@ func converError(val interface{}, t string) error {
 
 func stringToBool(val string) (bool, error) {
 	switch val {
-	case "1", "t", "T", "true", "TRUE", "True":
+	case "1", "t", "T", "true", "TRUE", "True", "ok", "OK", "yes", "YES":
 		return true, nil
 	case "0", "f", "F", "false", "FALSE", "False", "":
 		return false, nil

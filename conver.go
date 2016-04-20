@@ -3,6 +3,7 @@ package conver
 import (
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 // String : Conver "val" to a String
@@ -13,15 +14,19 @@ func String(val interface{}) (string, error) {
 	case []byte:
 		return string(ret), nil
 	default:
-		return fmt.Sprint(val), nil
+		str := fmt.Sprintf("%+v", val)
+		if val == nil || len(str) == 0 {
+			return "", fmt.Errorf("conver.String(), the %+v is empty", val)
+		}
+		return str, nil
 	}
 }
 
 // StringMust : Must Conver "val" to a String
-func StringMust(val interface{}, init string) string {
+func StringMust(val interface{}, def ...string) string {
 	ret, err := String(val)
-	if err != nil {
-		return init
+	if err != nil && len(def) > 0 {
+		return def[0]
 	}
 	return ret
 }
@@ -46,10 +51,10 @@ func Bool(val interface{}) (bool, error) {
 }
 
 // BoolMust : Must Conver "val" to a Bool
-func BoolMust(val interface{}, init bool) bool {
+func BoolMust(val interface{}, def ...bool) bool {
 	ret, err := Bool(val)
-	if err != nil {
-		return init
+	if err != nil && len(def) > 0 {
+		return def[0]
 	}
 	return ret
 }
@@ -66,10 +71,10 @@ func Bytes(val interface{}) ([]byte, error) {
 }
 
 // BytesMust : Must Conver "val" to []byte
-func BytesMust(val interface{}, init []byte) []byte {
+func BytesMust(val interface{}, def ...[]byte) []byte {
 	ret, err := Bytes(val)
-	if err != nil {
-		return init
+	if err != nil && len(def) > 0 {
+		return def[0]
 	}
 	return ret
 }
@@ -107,17 +112,17 @@ func Float32(val interface{}) (float32, error) {
 		}
 		return 0.0, nil
 	default:
-		str := StringMust(val, "")
+		str := strings.Replace(strings.TrimSpace(StringMust(val)), " ", "", -1)
 		f, err := strconv.ParseFloat(str, 32)
 		return float32(f), err
 	}
 }
 
 // Float32Must : Must Conver "val" to Float32
-func Float32Must(val interface{}, init float32) float32 {
+func Float32Must(val interface{}, def ...float32) float32 {
 	ret, err := Float32(val)
-	if err != nil {
-		return init
+	if err != nil && len(def) > 0 {
+		return def[0]
 	}
 	return ret
 }
@@ -155,66 +160,75 @@ func Float64(val interface{}) (float64, error) {
 		}
 		return 0.0, nil
 	default:
-		str := StringMust(val, "")
+		str := strings.Replace(strings.TrimSpace(StringMust(val)), " ", "", -1)
 		return strconv.ParseFloat(str, 64)
 	}
 }
 
 // Float64Must : Must Conver "val" to Float64
-func Float64Must(val interface{}, init float64) float64 {
+func Float64Must(val interface{}, def ...float64) float64 {
 	ret, err := Float64(val)
-	if err != nil {
-		return init
+	if err != nil && len(def) > 0 {
+		return def[0]
 	}
 	return ret
 }
 
 // Int : Conver "val" to a rounded Int
 func Int(val interface{}) (int, error) {
-	f := Float64Must(val, 0.0)
+	f, err := Float64(val)
+	if err != nil {
+		return 0, err
+	}
 	str := strconv.FormatFloat(f, 'f', 0, 64)
 	i, err := strconv.ParseInt(str, 10, 0)
 	return int(i), err
 }
 
 // IntMust : Must Conver "val" to a rounded Int
-func IntMust(val interface{}, init int) int {
+func IntMust(val interface{}, def ...int) int {
 	ret, err := Int(val)
-	if err != nil {
-		return init
+	if err != nil && len(def) > 0 {
+		return def[0]
 	}
 	return ret
 }
 
 // Int32 : Conver "val" to a rounded Int32
 func Int32(val interface{}) (int32, error) {
-	f := Float64Must(val, 0.0)
+	f, err := Float64(val)
+	if err != nil {
+		return 0, err
+	}
 	str := strconv.FormatFloat(f, 'f', 0, 64)
 	i, err := strconv.ParseInt(str, 10, 32)
 	return int32(i), err
 }
 
 // Int32Must : Must Conver "val" to a rounded Int32
-func Int32Must(val interface{}, init int32) int32 {
+func Int32Must(val interface{}, def ...int32) int32 {
 	ret, err := Int32(val)
-	if err != nil {
-		return init
+	if err != nil && len(def) > 0 {
+		return def[0]
 	}
 	return ret
 }
 
 // Int64 : Conver "val" to a rounded Int64
 func Int64(val interface{}) (int64, error) {
-	f := Float64Must(val, 0.0)
+	f, err := Float64(val)
+	if err != nil {
+		return 0, err
+	}
 	str := strconv.FormatFloat(f, 'f', 0, 64)
 	return strconv.ParseInt(str, 10, 64)
 }
 
 // Int64Must : Must Conver "val" to a rounded Int64
-func Int64Must(val interface{}, init int64) int64 {
+func Int64Must(val interface{}, def ...int64) int64 {
 	ret, err := Int64(val)
-	if err != nil {
-		return init
+	if err != nil && len(def) > 0 {
+		return def[0]
 	}
 	return ret
 }

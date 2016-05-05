@@ -1,0 +1,6 @@
+{
+  "name": "Conver",
+  "tagline": "Golang Type Reflect And Conver",
+  "body": "```go\r\npackage main\r\n\r\nimport (\r\n\t\"fmt\"\r\n\r\n\t\"github.com/miaolz123/conver\"\r\n)\r\n\r\nfunc main() {\r\n\tval := \"1 234.567\\t\\n\"\r\n\tfmt.Println(conver.Float64Must(val)) // output: 1234.567\r\n\tfmt.Println(conver.IntMust(val))     // output: 1235\r\n\tval = \"ok\"\r\n\tfmt.Println(conver.BoolMust(val))           // output: true\r\n\tfmt.Println(conver.Float64Must(val, 666.6)) // output: 666.6\r\n\tfmt.Println(conver.IntMust(val, 6666))      // output: 666\r\n}\r\n```",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}

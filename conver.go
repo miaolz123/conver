@@ -176,13 +176,12 @@ func Float64Must(val interface{}, def ...float64) float64 {
 
 // Int : Conver "val" to a rounded Int
 func Int(val interface{}) (int, error) {
-	f, err := Float64(val)
+	i, err := Int64(val)
 	if err != nil {
 		return 0, err
 	}
-	str := strconv.FormatFloat(f, 'f', 0, 64)
-	i, err := strconv.ParseInt(str, 10, 0)
-	return int(i), err
+
+	return int(i), nil
 }
 
 // IntMust : Must Conver "val" to a rounded Int
@@ -196,13 +195,12 @@ func IntMust(val interface{}, def ...int) int {
 
 // Int32 : Conver "val" to a rounded Int32
 func Int32(val interface{}) (int32, error) {
-	f, err := Float64(val)
+	i, err := Int64(val)
 	if err != nil {
 		return 0, err
 	}
-	str := strconv.FormatFloat(f, 'f', 0, 64)
-	i, err := strconv.ParseInt(str, 10, 32)
-	return int32(i), err
+
+	return int32(i), nil
 }
 
 // Int32Must : Must Conver "val" to a rounded Int32
@@ -216,11 +214,11 @@ func Int32Must(val interface{}, def ...int32) int32 {
 
 // Int64 : Conver "val" to a rounded Int64
 func Int64(val interface{}) (int64, error) {
-	f, err := Float64(val)
+	str, err := String(val)
 	if err != nil {
 		return 0, err
 	}
-	str := strconv.FormatFloat(f, 'f', 0, 64)
+
 	return strconv.ParseInt(str, 10, 64)
 }
 
